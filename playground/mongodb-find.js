@@ -10,7 +10,14 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 	console.log('Connected to MongoDB Server');
 
 
-	db.collection('Todos').insertOne({
+	db.collection('Todos').find().toArray().then((docs) => {
+		console.log('Todos');
+		console.log(JSON.stringify(docs, undefined, 2));
+	}, (err) => {
+		console.log('Unable to fetch Todos', err);
+	});
+
+	/*db.collection('Todos').insertOne({
 		text: 'Something to do',
 		completed: false
 	}, (err, result) => {
@@ -19,9 +26,9 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 		}
 
 		console.log(JSON.stringify(result.ops, undefined, 2));
-	});
+	});*/
 
-	db.collection('Users').insertOne({
+	/*db.collection('Users').insertOne({
 		name: 'Umair Shah',
 		age: 22,
 		location: 'Mardan'
@@ -31,7 +38,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 		}
 
 		console.log(result.ops[0]._id.getTimestamp());
-	});
+	});*/
 
 	//db.close();
 });
